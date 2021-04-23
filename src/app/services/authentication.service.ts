@@ -19,7 +19,7 @@ export class AuthenticationService {
     return this.httpClient.get<User>(this.url, { headers }).pipe(
       map(userData => {
         this.user.username = userData.username;
-        this.user.id = userData.id;
+        //this.user.id = userData.id;
         sessionStorage.setItem('username', user.username);
         return userData;
       })
@@ -38,7 +38,7 @@ export class AuthenticationService {
   }
 
   getUserId(): Observable<string>{
-    return this.httpClient.get<string>("http://localhost:8080/user" + "/" + sessionStorage.getItem("username")).pipe(
+    return this.httpClient.get<string>("http://localhost:8080/login" + "/" + sessionStorage.getItem("username")).pipe(
       map(id => {
         return id;
       })

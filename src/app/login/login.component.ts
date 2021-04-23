@@ -41,8 +41,6 @@ export class LoginComponent implements OnInit {
   user = {} as User;
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {
-    this.user.username = "user2";
-    this.user.password = "12345";
   }
 
   ngOnInit(): void {
@@ -59,14 +57,15 @@ export class LoginComponent implements OnInit {
   authenticate() {
     this.authenticationService.authenticate(this.user).subscribe((user:User) => {
       if (user) {
-        this.router.navigate(['consultar_url'])   
+        this.router.navigate(['consultar_url'])  
       }
     });
     //Captura o id do usuário autenticado e o insere na sessão
     if (sessionStorage.getItem("username")) {
       this.authenticationService.getUserId().subscribe((id) => {
-        return sessionStorage.setItem("id", id);
+        sessionStorage.setItem("id", id);
       });
+     
     }
   }
   //Verifica se o usuário está logado
