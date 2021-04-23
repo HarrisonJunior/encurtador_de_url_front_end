@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\cadaster-url",
+    "\\src\\app\\consult-url",
+    "\\src\\app\\delete-url",
+    "\\src\\app\\header",
+    "\\src\\app\\login",
+    "\\src\\app\\services",
+    "\\src\\environments"
+  ],
+  "PreviewInSolutionExplorer": false
+}

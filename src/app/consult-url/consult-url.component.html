@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="bg-light">
+  <div class="btn-group d-flex ">
+    <button type="button" class="btn btn-primary flex-fill border" routerLink="/consultar_url">Consultar Url</button>
+    <button type="button" class="btn btn-primary flex-fill border" routerLink="/cadastrar_url">Cadastrar Url</button>
+  </div>
+</div>
+<br />
+<br />
+<div class=" d-flex flex-column justify-content-center bg-light">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data do Cadastro</th>
+        <th>URL Completa</th>
+        <th>URL Encurtada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let url of urls">
+        <td>{{url.registrationData}}</td>
+        <td>{{url.completeUrl}}</td>
+        <td>{{url.shortenedUrl}}</td>
+        <td><button class="btn bg-warning text-white"><span class="glyphicon glyphicon-search"></span>Atualizar</button></td>
+        <td><button class="btn bg-danger text-white" (click)="deletarUrl(url)">Deletar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

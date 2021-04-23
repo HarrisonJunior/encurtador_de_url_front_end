@@ -1,0 +1,15 @@
+<div class="container d-flex flex-wrap align-content-center justify-content-center" >
+  <div class="container d-flex flex-column" [@triggerEfeito]="state">
+    <h2 class="mx-auto">Login</h2><br />
+    <form class="d-flex flex-column flex-wrap align-content-center justify-content-center" (ngSubmit)="authenticate()">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" name="userName" [(ngModel)]="user.username" required>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password" style="width:500px" required>
+      </div>
+      <button class="btn btn-primary mx-auto">Login</button>
+    </form>
+  </div>
+  </div>
+
