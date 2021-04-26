@@ -12,27 +12,38 @@ import { UrlService } from '../services/url.service';
 })
 export class CadasterUrlComponent{
   url = {} as Url;
-  completeUrl: string | undefined;
-  isSuccessful = false;
-
+  isSuccessfull = false;
+  isFailed = false;  
+ 
   constructor(private urlService: UrlService,private router: Router) {
   }
 
   /*Cadastra uma url*/
-  cadastrarUrl() {
+  cadastrarUrl(form:NgForm) {
     this.url.user = {} as User;
     //Atribuindo o id do usuário da sessão ao objeto url
     this.url.user.id = sessionStorage.getItem("id");
-    this.urlService.saveUrl(this.url).subscribe((url: Url) => {
+    this.urlService.saveUrl(this.url).subscribe((url) => {
       if (url) {
-        this.isSuccessful = true;
+        this.isSuccessfull = true;
+        this.isFailed = false;
       }
+    }, error => {
+        this.isSuccessfull = false;
+        this.isFailed = true;
     });
+    this.cleanForm(form);
   }
 
   /*Limpa o formulario*/
   cleanForm(form: NgForm) {
     form.resetForm();
+  }
+
+  /*Esconde os alerts quando clica no campo de texto*/
+  hideAlert() {
+    this.isSuccessfull = false;
+    this.isFailed = false;
   }
 
 }

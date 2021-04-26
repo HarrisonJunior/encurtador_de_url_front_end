@@ -1,3 +1,4 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -7,10 +8,16 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService) { }
 
-  logOut() {
-    this.authenticationService.logOut();
+  /*Faz logout */
+  logout() {
+    this.authenticationService.logout();
+  }
+
+  //Mostra o menu apenas se o usuário estiver logado
+  showMenu() {
+    return this.authenticationService.isUserLoggedIn();
   }
 
 }

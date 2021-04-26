@@ -1,28 +1,26 @@
 <app-header></app-header>
-<div class="bg-light">
-  <div class="btn-group d-flex ">
-    <button type="button" class="btn btn-primary flex-fill border" routerLink="/consultar_url">Consultar Url</button>
-    <button type="button" class="btn btn-primary flex-fill border" routerLink="/cadastrar_url">Cadastrar Url</button>
-  </div>
-</div>
 <br />
 <br />
 <div class=" d-flex flex-column justify-content-center bg-light">
-  <table class="table table-striped">
+  <table class="table table-hover table-dark">
     <thead>
       <tr>
         <th>Data do Cadastro</th>
         <th>URL Completa</th>
+        <th></th>
         <th>URL Encurtada</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let url of urls">
         <td>{{url.registrationData}}</td>
         <td>{{url.completeUrl}}</td>
+        <td> <button class="btn btn-xs" ngxClipboard [cbContent]="url.completeUrl"> <mat-icon style="opacity:0.6"> content_copy</mat-icon> </button></td>
         <td>{{url.shortenedUrl}}</td>
-        <td><button class="btn bg-warning text-white"><span class="glyphicon glyphicon-search"></span>Atualizar</button></td>
-        <td><button class="btn bg-danger text-white" (click)="deletarUrl(url)">Deletar</button></td>
+        <td><button class="btn btn-xs" ngxClipboard [cbContent]="url.shortenedUrl"><mat-icon style="opacity:0.6"> content_copy</mat-icon></button></td>
+        <td><button class="btn bg-warning text-white"><span class="glyphicon glyphicon-search"></span><mat-icon>edit</mat-icon></button></td>
+        <td><button class="btn bg-danger text-white" (click)="deletarUrl(url)"><mat-icon>delete_forever</mat-icon></button></td> 
       </tr>
     </tbody>
   </table>

@@ -4,23 +4,25 @@ import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { retry, catchError, map } from 'rxjs/operators';
 import { Url } from '../models/url';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
-  url = 'http://localhost:8080/urls'; //api rest
+  url = environment.BASE_URL + '/urls';
 
   constructor(private httpClient: HttpClient) { }
 
   //Headers da autorização
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'  })
+      'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   }
 
   //Busca todas as urls do usuário
-  getAllUrlsByUsername(): Observable<Url[]> {
+  getAllUrlsByUsername(): Observable<Url[]>{
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + sessionStorage.getItem("username") + ':' + sessionStorage.getItem("password"), "Access-Control-Allow-Origin":"*" });
     return this.httpClient.get<Url[]>(this.url + '/' + sessionStorage.getItem("username"), this.httpOptions)
       .pipe(
         retry(1),
@@ -29,12 +31,8 @@ export class UrlService {
   }
 
   //Salva url
-  saveUrl(url: Url): Observable<Url> {
-    return this.httpClient.post<Url>(this.url, JSON.stringify(url), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
+  saveUrl(url: Url): Observable<User> {
+    return this.httpClient.post<User>(this.url, JSON.stringify(url), this.httpOptions);
   }
 
   //Deleta uma url pelo seu id

@@ -4,45 +4,32 @@ import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { retry, catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  url = 'http://localhost:8080/login';
+  url = environment.BASE_URL + "/login";  //endpoint
   user = {} as User;
 
   constructor(private httpClient: HttpClient, private router : Router) { }
 
-  authenticate(user: User): Observable<User> {
-    const headers = new HttpHeaders({ Authorization: 'Basic ' +  btoa(user.username + ':' + user.password)});
-    return this.httpClient.get<User>(this.url, { headers }).pipe(
-      map(userData => {
-        this.user.username = userData.username;
-        //this.user.id = userData.id;
-        sessionStorage.setItem('username', user.username);
-        return userData;
-      })
-    );
+  authenticate(user: User): Observable<any> {
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(user.username + ':' + user.password),"Content-Type":"application/json"});
+    return this.httpClient.get<any>(this.url, { headers });
   }
 
   isUserLoggedIn() {
     let user = sessionStorage.getItem('username');
-    console.log(!(user === null));
     return !(user === null);
   }
 
-  logOut() {
-    sessionStorage.removeItem('username');
+  logout() {
+    console.log(environment.BASE_URL + "/logout");
+    this.httpClient.get(environment.BASE_URL + "/logout");
+    sessionStorage.clear();
     this.router.navigate(["login"]);
-  }
-
-  getUserId(): Observable<string>{
-    return this.httpClient.get<string>("http://localhost:8080/login" + "/" + sessionStorage.getItem("username")).pipe(
-      map(id => {
-        return id;
-      })
-    );
   }
 
 }

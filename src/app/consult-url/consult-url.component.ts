@@ -22,6 +22,7 @@ export class ConsultUrlComponent implements OnInit{
   getAllUrlsByUsername() {
     this.urlService.getAllUrlsByUsername().subscribe((urls: Url[]) => {
       this.urls = urls;
+   
     });
   }
 

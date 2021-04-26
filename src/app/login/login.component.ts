@@ -37,8 +37,9 @@ import { User } from '../models/user';
   ]
 })
 export class LoginComponent implements OnInit {
-  state = 'disabled';
+  state = 'disabled'; //Estado da animação do componente
   user = {} as User;
+  
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {
   }
@@ -47,34 +48,35 @@ export class LoginComponent implements OnInit {
     if (this.router.url == "/login") {
       this.toggleState();
     }
+    this.user.username = "user";
+    this.user.password = "1234";
   }
-  //Liga e desliga o state usado pela trigger de animação
+  /*Liga e desliga o state usado pela trigger de animação*/
   toggleState() {
     this.state == "activated" ? this.state = "disabled" : this.state = "activated";
   }
 
-  //Authentica usuário e o redireciona para teka de consulta
+  /*Authentica usuário, o insere na sessão e o redireciona para tela de consulta*/
   authenticate() {
-    this.authenticationService.authenticate(this.user).subscribe((user:User) => {
-      if (user) {
-        this.router.navigate(['consultar_url'])  
+    this.authenticationService.authenticate(this.user).subscribe((response) => {
+      console.log("oi " + response);
+      if (response) {
+        sessionStorage.setItem("id", response["principal"]["id"]);
+        sessionStorage.setItem("username", response["principal"]["username"]);
+        sessionStorage.setItem("password", btoa(response["principal"]["password"]));
+        this.router.navigate(["consultar_url"]);
       }
     });
-    //Captura o id do usuário autenticado e o insere na sessão
-    if (sessionStorage.getItem("username")) {
-      this.authenticationService.getUserId().subscribe((id) => {
-        sessionStorage.setItem("id", id);
-      });
-     
-    }
   }
-  //Verifica se o usuário está logado
+
+  /*Verifica se o usuário está logado*/
   isUserLoggedIn() {
     this.authenticationService.isUserLoggedIn();
   }
-  //Realiza logout
-  logOut() {
-    this.authenticationService.logOut();
+
+  /*Realiza logout*/
+  logout() {
+    this.authenticationService.logout();
   }
  
 }

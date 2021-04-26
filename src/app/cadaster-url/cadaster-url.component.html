@@ -1,34 +1,28 @@
 <app-header></app-header>
-<div class="bg-light">
-  <div class="btn-group d-flex">
-    <button type="button" class="btn btn-primary flex-fill border" routerLink="/consultar_url">Consultar Url</button>
-    <button type="button" class="btn btn-primary flex-fill border" routerLink="/cadastrar_url">Cadastrar Url</button>
-  </div>
-</div>
-<br /><br />
+<br />
+<br />
 <div class="container d-flex flex-column" style="background-color: #6272a4;">
   <h2 class="mx-auto">Cadastro URL</h2>
-  <form (ngSubmit)="cadastrarUrl()">
-    <div class="d-flex flex-column justify-content-center">
+  <form (ngSubmit)="cadastrarUrl(form)" #form="ngForm">
+    <div class="d-flex flex-column justify-content-center ">
       <label for="completeUrl">Complete Url:</label>
-      <input type="text" class="form-control" placeholder="Digite a url completa" name="completeUrl" style="width:700px" [(ngModel)]="url.completeUrl" required><br />
-      <button type="submit" class="btn btn-primary mx-auto">Cadastrar URL</button><br />
+      <input type="text" class="form-control" ngModel placeholder="Digite a url completa" name="completeUrl" style="width:700px" [(ngModel)]="url.completeUrl" (click)="hideAlert()" required><br />
+        <button type="submit" class="btn btn-primary mx-auto">Cadastrar URL</button>   
     </div>
   </form>
 </div>
 
 <br />
 <div class="container" style="background-color: #6272a4;">
-  <div class="form-group">
-    <label for="shortenedUrl">URL encurtada gerada:</label>
-    <input type="text" class="form-control" name="shortenedUrl" [(ngModel)]="url.shortenedUrl" readonly>
-    <br />
-  </div>
-
- <br />
-  <div class="alert alert-success" *ngIf="isSuccessful">
+  <br />
+  <div class="alert alert-success" *ngIf="isSuccessfull">
     <strong>Url cadastrada com successo!</strong>
   </div>
 </div>
+<br />
+<div class="alert alert-danger" *ngIf="isFailed">
+  <strong>Falha ao tentar cadastrar url!</strong>
+</div>
+
 
 

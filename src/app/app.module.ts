@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { XhrInterceptorService } from './services/xhr-interceptor.service';
+import { ClipboardModule } from 'ngx-clipboard';
+import { MatIconModule } from '@angular/material/icon';  
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { XhrInterceptorService } from './services/xhr-interceptor.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ClipboardModule,
+    MatIconModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptorService, multi: true }],
   bootstrap: [AppComponent]
