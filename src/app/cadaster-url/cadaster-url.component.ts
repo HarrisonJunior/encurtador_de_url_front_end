@@ -28,6 +28,9 @@ export class CadasterUrlComponent{
       if (url) {
         this.isSuccessfull = true;
         this.isFailed = false;
+      } else {
+        this.isSuccessfull = false;
+        this.isFailed = true;
       }
     }, error => {
         this.isSuccessfull = false;

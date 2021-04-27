@@ -13,16 +13,16 @@
 </div>
 
 <br />
-<div class="container" style="background-color: #6272a4;">
+<div class="container" *ngIf="isSuccessfull">
   <br />
-  <div class="alert alert-success" *ngIf="isSuccessfull">
+  <div class="alert alert-success">
     <strong>Url cadastrada com successo!</strong>
   </div>
 </div>
 <br />
-<div class="alert alert-danger" *ngIf="isFailed">
-  <strong>Falha ao tentar cadastrar url!</strong>
+<div class="container" *ngIf="isFailed">
+  <div class="alert alert-danger">
+    <strong>Falha ao tentar cadastrar url!Digite uma url válida!</strong>
+  </div>
 </div>
-
-
 
