@@ -15,12 +15,18 @@
     <tbody>
       <tr *ngFor="let url of urls">
         <td>{{url.registrationData}}</td>
-        <td>{{url.completeUrl}}</td>
+        <td>
+          {{url.completeUrl}}<br />
+          <span class="d-flex" *ngIf="url.isEnabledEdit">
+            <input class="form-control flex-fill" type="text" placeholder="Digite a nova url" #new_url />
+            <button class="btn btn-primary flex-fill ml-2" (click)="atualizarUrl(url,new_url.value)">atualizar</button>
+          </span>
+        </td>
         <td> <button class="btn btn-xs" ngxClipboard [cbContent]="url.completeUrl"> <mat-icon style="opacity:0.6"> content_copy</mat-icon> </button></td>
         <td>{{url.shortenedUrl}}</td>
         <td><button class="btn btn-xs" ngxClipboard [cbContent]="url.shortenedUrl"><mat-icon style="opacity:0.6"> content_copy</mat-icon></button></td>
-        <td><button class="btn bg-warning text-white"><span class="glyphicon glyphicon-search"></span><mat-icon>edit</mat-icon></button></td>
-        <td><button class="btn bg-danger text-white" (click)="deletarUrl(url)"><mat-icon>delete_forever</mat-icon></button></td> 
+        <td><button class="btn bg-warning text-white" (click)="toggleShowEdit(url)"><mat-icon>edit</mat-icon></button></td>
+        <td><button class="btn bg-danger text-white" (click)="deletarUrl(url)"><mat-icon>delete_forever</mat-icon></button></td>
       </tr>
     </tbody>
   </table>

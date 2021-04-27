@@ -1,9 +1,10 @@
 import { User } from "./user";
 
 export interface Url {
-  id: number;
+  id: number | undefined;
   registrationData: Date;
   completeUrl: string;
   shortenedUrl: string;
-  user:User;
+  user: User;
+  isEnabledEdit:boolean
 }

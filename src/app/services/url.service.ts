@@ -5,58 +5,35 @@ import { User } from '../models/user';
 import { retry, catchError, map } from 'rxjs/operators';
 import { Url } from '../models/url';
 import { environment } from '../../environments/environment';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
-  url = environment.BASE_URL + '/urls';
+  url = environment.BASE_URL + '/urls'; // endpoint api rest
 
-  constructor(private httpClient: HttpClient) { }
-
-  //Headers da autorização
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-  }
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) { }
 
   //Busca todas as urls do usuário
   getAllUrlsByUsername(): Observable<Url[]>{
-    const headers = new HttpHeaders({ Authorization: 'Basic ' + sessionStorage.getItem("username") + ':' + sessionStorage.getItem("password"), "Access-Control-Allow-Origin":"*" });
-    return this.httpClient.get<Url[]>(this.url + '/' + sessionStorage.getItem("username"), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
+    return this.httpClient.get<Url[]>(this.url + '/' + this.authenticationService.username);
   }
 
   //Salva url
   saveUrl(url: Url): Observable<User> {
-    return this.httpClient.post<User>(this.url, JSON.stringify(url), this.httpOptions);
+    url.user.id = this.authenticationService.id;
+    return this.httpClient.post<User>(this.url, JSON.stringify(url));
   }
 
   //Deleta uma url pelo seu id
   deletarUrl(url: Url) {
-    return this.httpClient.delete(this.url + "/" + url.id, this.httpOptions)
-      .pipe(
-         retry(1),
-          catchError(this.handleError)
-      )
+    return this.httpClient.delete(this.url + "/" + url.id);
   }
 
-  // Manipulação de erros
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  };
+  atualizarUrl(url: Url) {
+    return this.httpClient.put<User>(this.url, JSON.stringify(url));
+  }
 
 }
 

@@ -5,14 +5,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { CadasterUrlComponent } from './cadaster-url/cadaster-url.component';
 import { ConsultUrlComponent } from './consult-url/consult-url.component';
-import { DeleteUrlComponent } from './delete-url/delete-url.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { XhrInterceptorService } from './services/xhr-interceptor.service';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ClipboardModule } from 'ngx-clipboard';
-import { MatIconModule } from '@angular/material/icon';  
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     LoginComponent,
     CadasterUrlComponent,
     ConsultUrlComponent,
-    DeleteUrlComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
     ClipboardModule,
     MatIconModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptorService, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

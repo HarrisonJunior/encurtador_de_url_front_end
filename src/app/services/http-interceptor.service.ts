@@ -3,19 +3,19 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable()
-export class XhrInterceptorService implements HttpInterceptor {
+export class HttpInterceptorService implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+  
     if (this.authenticationService.isUserLoggedIn()) {
-      const xhr = req.clone({
+      const httpReq = req.clone({
         headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + btoa(sessionStorage.getItem("username") + ':' + sessionStorage.getItem("password")),
+          'Content-Type': 'application/json', Authorization: 'Basic ' + this.authenticationService.token
         })
       });
-      return next.handle(xhr);
+      return next.handle(httpReq);
     } else {
       return next.handle(req);
     }  

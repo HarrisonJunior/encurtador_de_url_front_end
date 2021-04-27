@@ -10,25 +10,33 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  url = environment.BASE_URL + "/login";  //endpoint
-  user = {} as User;
+  url = environment.BASE_URL + "/login"; //endpoint api rest
+  id: number | undefined;
+  username: string | undefined;
+  token: string | undefined; //username+passoword criptografados
 
   constructor(private httpClient: HttpClient, private router : Router) { }
 
-  authenticate(user: User): Observable<any> {
-    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(user.username + ':' + user.password),"Content-Type":"application/json"});
-    return this.httpClient.get<any>(this.url, { headers });
+  authenticate(username: string, password: string) {
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
+    return this.httpClient.get<any>(this.url, { headers }).pipe(map((response) => {
+      if (response != undefined) {
+        this.id = response["principal"]["id"];
+        this.username = response["principal"]["username"];
+        this.token = btoa(username + ':' + password);
+      }
+    }));
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('username');
-    return !(user === null);
+    let username = this.username;
+    return !(this.username === undefined);
   }
 
   logout() {
-    console.log(environment.BASE_URL + "/logout");
-    this.httpClient.get(environment.BASE_URL + "/logout");
-    sessionStorage.clear();
+    this.id = undefined;
+    this.username = undefined;
+    this.token = undefined;
     this.router.navigate(["login"]);
   }
 
