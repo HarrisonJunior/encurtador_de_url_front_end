@@ -19,7 +19,8 @@
           {{url.completeUrl}}<br />
           <span class="d-flex" *ngIf="url.isEnabledEdit">
             <input class="form-control flex-fill" type="text" placeholder="Digite a nova url" #new_url />
-            <button class="btn btn-primary flex-fill ml-2" (click)="atualizarUrl(url,new_url.value)">atualizar</button>
+            <button class="btn btn-success flex-fill ml-2" (click)="atualizarUrl(url,new_url.value)"><mat-icon>update</mat-icon>Atualizar</button>
+            <button class="btn btn-danger flex-fill ml-2" (click)="toggleShowEdit(url)"><mat-icon>cancel</mat-icon>Cancelar</button>
           </span>
         </td>
         <td> <button class="btn btn-xs" ngxClipboard [cbContent]="url.completeUrl"> <mat-icon class="copy-clipboard-icon" style="opacity:0.6" > content_copy</mat-icon> </button></td>
