@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
     if (this.router.url == "/login") {
       this.toggleState();
     }
-    this.user.username = "user";
-    this.user.password = "1234";
+    //this.user.username = "user";
+    //this.user.password = "1234";
   }
   /*Liga e desliga o state usado pela trigger de animação*/
   toggleState() {
