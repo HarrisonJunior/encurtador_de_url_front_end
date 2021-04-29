@@ -11,6 +11,6 @@
     "\\src\\app\\services",
     "\\src\\environments"
   ],
-  "SelectedNode": "\\src\\app\\services\\xhr-interceptor.service.ts",
+  "SelectedNode": "\\src\\app\\login\\login.component.ts",
   "PreviewInSolutionExplorer": false
 }
