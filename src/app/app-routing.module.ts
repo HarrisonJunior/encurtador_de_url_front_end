@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { MyRouteGuard } from './my-route-guard.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch:'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'cadastrar_url', component: CadasterUrlComponent, canActivate: [MyRouteGuard] },
   { path: 'consultar_url', component: ConsultUrlComponent, canActivate: [MyRouteGuard] }

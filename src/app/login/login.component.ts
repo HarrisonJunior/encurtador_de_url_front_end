@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
@@ -36,19 +36,20 @@ import { User } from '../models/user';
     ])
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
   state = 'disabled'; //Estado da animação do componente
   user = {} as User;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     if (this.router.url == "/login") {
       this.toggleState();
     }
-    //this.user.username = "user";
-    //this.user.password = "1234";
+    this.user.username = "user";
+    this.user.password = "1234";
   }
+
   /*Liga e desliga o state usado pela trigger de animação*/
   toggleState() {
     this.state == "activated" ? this.state = "disabled" : this.state = "activated";
@@ -56,14 +57,16 @@ export class LoginComponent implements OnInit {
 
   /*Authentica usuário e o redireciona para tela de consulta de urls*/
   authenticate() {
+    /*console.log(this.isUserLoggedIn());*/
     this.authenticationService.authenticate(this.user.username, this.user.password).subscribe(() => {
+      //console.log(this.isUserLoggedIn());
         this.router.navigate(["consultar_url"]);
     });
   }
 
   /*Verifica se o usuário está logado*/
-  isUserLoggedIn() {
-    this.authenticationService.isUserLoggedIn();
+  isUserLoggedIn():boolean {
+    return this.authenticationService.isUserLoggedIn();
   }
 
   /*Realiza logout*/

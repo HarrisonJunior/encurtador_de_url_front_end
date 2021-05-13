@@ -4,13 +4,11 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\cadaster-url",
-    "\\src\\app\\consult-url",
-    "\\src\\app\\header",
-    "\\src\\app\\login",
+    "\\src\\app\\interceptors",
     "\\src\\app\\models",
     "\\src\\app\\services",
-    "\\src\\environments"
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app\\login\\login.component.ts",
+  "SelectedNode": "\\src\\app\\cadaster-url\\cadaster-url.component.ts",
   "PreviewInSolutionExplorer": false
 }

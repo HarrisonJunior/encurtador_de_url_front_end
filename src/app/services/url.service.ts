@@ -17,12 +17,12 @@ export class UrlService {
 
   //Busca todas as urls do usuário
   getAllUrlsByUsername(): Observable<Url[]>{
-    return this.httpClient.get<Url[]>(this.url + '/' + this.authenticationService.username);
+    return this.httpClient.get<Url[]>(this.url + '/' + sessionStorage.getItem("username"));
   }
 
   //Salva url
   saveUrl(url: Url): Observable<User> {
-    url.user.id = this.authenticationService.id;
+    url.user.id = sessionStorage.getItem("userId");
     return this.httpClient.post<User>(this.url, JSON.stringify(url));
   }
 
@@ -32,7 +32,7 @@ export class UrlService {
   }
 
   atualizarUrl(url: Url) {
-    return this.httpClient.put<User>(this.url, JSON.stringify(url));
+    return this.httpClient.put<User>(this.url + "/" + url.id, JSON.stringify(url));
   }
 
 }

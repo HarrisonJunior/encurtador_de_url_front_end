@@ -1,21 +1,23 @@
-<nav class="navbar navbar-expand-sm navbar-dark d-flex" style="    background-color: #9dc7f1
-">
+<nav class="navbar navbar-expand-md navbar-dark" style="background-image: linear-gradient(to right, #9dc7f1, #345b8c);">
   <!-- Brand/logo -->
-  <a class="navbar-brand mr-auto">Encurtador de URL</a>
+  <a class="navbar-brand">Encurtador de URL</a>
 
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link" (click)="logout()"><mat-icon>logout</mat-icon>Logout</a>
-    </li>
-  </ul>
-</nav>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<div class="bg-light">
-  <div class="btn-group d-flex ">
-    <button type="button"  class="btn btn-primary flex-fill text-white"  routerLink="/consultar_url" *ngIf="showMenu()">Consultar Url</button>
-    <button type="button" class="btn  btn-primary flex-fill text-white" routerLink="/cadastrar_url" *ngIf="showMenu()">Cadastrar Url</button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <!-- Links -->
+    <ul class="navbar-nav w-100">
+      <li class="nav-item">
+        <a class="nav-link text-light" routerLink="/consultar_url" *ngIf="showMenu()">Consultar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" routerLink="/cadastrar_url" *ngIf="showMenu()">Cadastrar</a>
+      </li>
+      <li class="nav-item ml-md-auto">
+        <a class="nav-link text-light" (click)="logout()" style="cursor:pointer"><mat-icon>logout</mat-icon>Logout</a>
+      </li>
+    </ul>
   </div>
-</div>
-
-
+</nav>

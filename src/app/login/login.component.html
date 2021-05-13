@@ -1,17 +1,22 @@
-<div  class="container d-flex flex-wrap align-content-center justify-content-center" style="width:45%;height:100vh;background-color: #44475a">
-  <div class="container d-flex flex-wrap align-content-center justify-content-center mx-auto">
-    <div class="container d-flex flex-column" [@triggerEfeito]="state">
-      <h2 class="mx-auto">Login</h2><br />
-      <form class="d-flex flex-column flex-wrap align-content-center justify-content-center" (ngSubmit)="authenticate()">
+
+<div class="d-flex flex-wrap align-content-center justify-content-center w-100" style="    height: 100vh;background-image: linear-gradient(to right, #9dc7f1, #345b8c);">
+<div class="row d-flex flex-wrap align-content-center justify-content-center mx-auto">
+  <div class="col-sm-12 d-flex flex-column " [@triggerEfeito]="state">
+    <div class="d-flex flex-column w-100 mx-auto rounded p-md-5" style="border:solid 1px white">
+      <h1 class="mx-auto flex-fill text-light" style="font-family:sans-serif;font-size:200%">Login</h1><br />
+      <form class="flex-fill" (ngSubmit)="authenticate()">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Username" name="userName" [(ngModel)]="user.username"  required>
+          <input type="text" class="form-control w-100 shadow-sm" placeholder="Username" name="userName" [(ngModel)]="user.username" required>
         </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password"  style="width:500px" required>
+        <div class="form-group flex-fill">
+          <input type="password" class="form-control shadow-sm" placeholder="Password" name="password" [(ngModel)]="user.password" required>
         </div>
-        <button class="btn btn-primary mx-auto">Login</button>
-        <br/>
+        <button class="btn btn-primary d-flex mx-auto flex-fill ">Entrar</button>
+        <br />
       </form>
     </div>
   </div>
 </div>
+</div>
+
+

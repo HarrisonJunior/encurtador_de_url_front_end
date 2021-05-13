@@ -14,16 +14,17 @@ import { UrlService } from '../services/url.service';
 export class CadasterUrlComponent{
   url = {} as Url;
   isSuccessfull = false;
-  isFailed = false;  
+  isFailed = false;
 
   constructor(private urlService: UrlService, private router: Router, private authenticationService: AuthenticationService) {
+ 
   }
 
   /*Cadastra uma url*/
   cadastrarUrl(form:NgForm) {
     this.url.user = {} as User;
     //Atribuindo o id do usuário da sessão ao objeto url
-    this.url.user.id = this.authenticationService.id;
+    this.url.user.id = sessionStorage.getItem("userId");
     this.urlService.saveUrl(this.url).subscribe((url) => {
       if (url) {
         this.isSuccessfull = true;
@@ -49,5 +50,4 @@ export class CadasterUrlComponent{
     this.isSuccessfull = false;
     this.isFailed = false;
   }
-
 }

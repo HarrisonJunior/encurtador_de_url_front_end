@@ -11,32 +11,29 @@ import { environment } from '../../environments/environment';
 })
 export class AuthenticationService {
   url = environment.BASE_URL + "/login"; //endpoint api rest
-  id: number | undefined;
-  username: string | undefined;
-  token: string | undefined; //username+passoword criptografados
 
   constructor(private httpClient: HttpClient, private router : Router) { }
 
   authenticate(username: string, password: string) {
-    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
-    return this.httpClient.get<any>(this.url, { headers }).pipe(map((response) => {
+    const headers = new HttpHeaders({ "Content-Type": "application/json" });
+    return this.httpClient.post<any>(this.url, JSON.stringify({ 'username': username, 'password': password }), { headers }).pipe(map((response) => {
       if (response != undefined) {
-        this.id = response["principal"]["id"];
-        this.username = response["principal"]["username"];
-        this.token = btoa(username + ':' + password);
+        //console.log(response["jwt"])
+        //console.log(response["userId"])
+        sessionStorage.setItem("jwt", response["jwt"]);
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("userId", response["userId"]);
       }
     }));
   }
 
-  isUserLoggedIn() {
-    let username = this.username;
-    return !(this.username === undefined);
+  isUserLoggedIn():boolean {
+    return !(sessionStorage.getItem("username") === null);
   }
 
   logout() {
-    this.id = undefined;
-    this.username = undefined;
-    this.token = undefined;
+    //console.log(sessionStorage.getItem("jwt"));
+    sessionStorage.clear();
     this.router.navigate(["login"]);
   }
 

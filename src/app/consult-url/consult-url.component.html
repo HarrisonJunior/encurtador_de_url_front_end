@@ -1,37 +1,52 @@
 <app-header></app-header>
 <br />
 <br />
-<div class=" d-flex flex-column justify-content-center bg-light">
-  <table class="table table-hover table-dark">
-    <thead>
+<div class="table-responsive-sm table-responsive-md table-responsive-lg">
+  <table class="table table-hover text-light" style="background-color:#536f8c">
+    <thead style="background-color: #3e6595">
       <tr>
-        <th>Data do Cadastro</th>
-        <th >URL Completa</th>
+        <th (click)="orderBy('registrationData',$event)">Data do Cadastro</th>
+        <th (click)="orderBy('completeUrl',$event)">URL Completa</th>
         <th></th>
-        <th >URL Encurtada</th>
+        <th (click)="orderBy('shortenedUrl',$event)">URL Encurtada</th>
+        <th></th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let url of urls">
-        <td>{{url.registrationData}}</td>
-        <td>
+        <td>{{url.registrationData | date: 'short' }}</td>
+        <td #target>
           {{url.completeUrl}}<br />
-          <span class="d-flex" *ngIf="url.isEnabledEdit">
-            <input class="form-control flex-fill" type="text" placeholder="Digite a nova url" #new_url />
-            <button class="btn btn-success flex-fill ml-2" (click)="atualizarUrl(url,new_url.value)"><mat-icon>update</mat-icon>Atualizar</button>
-            <button class="btn btn-danger flex-fill ml-2" (click)="toggleShowEdit(url)"><mat-icon>cancel</mat-icon>Cancelar</button>
-          </span>
+          <div class="d-flex flex-wrap flex-sm-wrap flex-md-wrap" *ngIf="url.isEnabledEdit">
+            <input class="form-control w-100" type="text" placeholder="Digite a nova url" #new_url autofocus />
+            <button class="btn btn-success flex-fill mx-auto ml-2" (click)="atualizarUrl(url,new_url.value)"><mat-icon>update</mat-icon>Atualizar</button>
+            <button class="btn btn-danger flex-fill mx-auto ml-2" (click)="toggleShowEdit(url)"><mat-icon>cancel</mat-icon>Cancelar</button>
+          </div>
         </td>
-        <td> <button class="btn btn-xs" ngxClipboard [cbContent]="url.completeUrl"> <mat-icon class="copy-clipboard-icon" style="opacity:0.6" > content_copy</mat-icon> </button></td>
-        <td>{{url.shortenedUrl}}</td>
-        <td><button class="btn btn-xs" ngxClipboard [cbContent]="url.shortenedUrl"><mat-icon class="copy-clipboard-icon" style="opacity:0.6"> content_copy</mat-icon></button></td>
-        <td><button class="btn bg-warning text-white" (click)="toggleShowEdit(url)"><mat-icon >edit</mat-icon></button></td>
-        <td><button class="btn bg-danger text-white" (click)="deletarUrl(url)"><mat-icon>delete_forever</mat-icon></button></td>
+        <td> <button class="btn btn-xs" ngxClipboard [cbContent]="url.completeUrl"> <mat-icon class="copy-clipboard-icon" style="opacity:0.6"> content_copy</mat-icon> </button></td>
+        <td><a href="{{url.completeUrl}}" target="_blank">{{url.shortenedUrl}}</a></td>
+        <td><button class="btn btn-xs" ngxClipboard [cbContent]="url.shortenedUrl"><mat-icon class="copy-clipboard-icon" style="opacity:0.6">content_copy</mat-icon></button></td>
+        <td><button class="btn bg-warning text-white" (click)="toggleShowEditAndScroll(url,target)"><mat-icon>edit</mat-icon></button></td>
+        <td><button class="btn bg-danger text-white" (click)="openModalWithClass(template,url)"><mat-icon>delete_forever</mat-icon></button></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-
-
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Confirmação</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Você realmente deseja deletar?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="actionModal()">Confirm</button>
+    <button type="button" class="btn btn-primary" (click)="closeModal()">Cancel</button>
+  </div>
+</ng-template>

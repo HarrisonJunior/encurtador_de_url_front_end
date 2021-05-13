@@ -12,7 +12,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { MatIconModule } from '@angular/material/icon';
-
+import { OrderModule } from 'ngx-order-pipe';
+import { AutofocusFixModule } from 'ngx-autofocus-fix';
+import { ModalModule } from 'ngx-bootstrap/modal';  
+import { HttpErrorInterceptor } from './interceptors/http-error-interceptor';
 
 @NgModule({
   declarations: [
@@ -29,9 +32,15 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     FormsModule,
     ClipboardModule,
-    MatIconModule
+    MatIconModule,
+    OrderModule,
+    AutofocusFixModule.forRoot(),
+    ModalModule.forRoot()
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

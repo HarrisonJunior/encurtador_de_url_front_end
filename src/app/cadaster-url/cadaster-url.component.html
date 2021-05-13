@@ -1,17 +1,18 @@
 <app-header></app-header>
 <br />
 <br />
-<div class="container d-flex flex-column" style="background-color: #6272a4;">
+<div class="container d-flex flex-column" style="background-color: #536f8c;">
   <h2 class="mx-auto">Cadastro URL</h2>
   <form (ngSubmit)="cadastrarUrl(form)" #form="ngForm">
-    <div class="d-flex flex-column justify-content-center ">
+    <div class="d-flex flex-column justify-content-center">
       <label for="completeUrl">Complete Url:</label>
-      <input type="text" class="form-control" ngModel placeholder="Digite a url completa" name="completeUrl" style="width:700px" [(ngModel)]="url.completeUrl" (click)="hideAlert()" required><br />
-        <button type="submit" class="btn btn-primary mx-auto">Cadastrar URL</button>   
+      <input type="text" class="form-control shadow-sm" ngModel placeholder="Digite a url completa" name="completeUrl" [(ngModel)]="url.completeUrl" (click)="hideAlert()" required>
+      <br />
+      <button type="submit" class="btn btn-primary mx-auto">Cadastrar URL</button>
     </div>
   </form>
+  <br />
 </div>
-
 <br />
 <div class="container" *ngIf="isSuccessfull">
   <br />
@@ -22,7 +23,6 @@
 <br />
 <div class="container" *ngIf="isFailed">
   <div class="alert alert-danger">
-    <strong>Falha ao tentar cadastrar url!Digite uma url válida!</strong>
+    <strong>Falha ao tentar cadastrar url! Digite uma url válida e que já não esteja cadastrada!</strong>
   </div>
 </div>
-
